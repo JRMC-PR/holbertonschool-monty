@@ -6,8 +6,9 @@
  *@line_number: lines in input;
  */
 
+void pall(stack_t **stack, unsigned int line_number)
 {
-	s_t *tmp = *stack;
+	stack_t *tmp = *stack;
 
 	(void)line_number;
 
