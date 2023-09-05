@@ -1,4 +1,5 @@
 #include "monty.h"
+<<<<<<< HEAD
 /**
  *push - adds to the stack
  *@head::a pointer to the head of the stack
@@ -36,3 +37,24 @@ void push(stack_t **stack, unsigned int line_number)
 } /*end push*/
 
 
+=======
+
+/**
+ *pall - print all opcode
+ *@stack: array of data to print
+ *@line_number: lines in input;
+ */
+
+void pall(s_t **stack, unsigned int line_number)
+{
+	s_t *tmp = *stack;
+
+	(void)line_number;
+
+	while (tmp)
+	{
+		printf("%d\n", tmp->n);
+		tmp = tmp->next;
+	}
+}
+>>>>>>> e724d6433ffa936c5abc5bbc823d2d6f5cb75697
