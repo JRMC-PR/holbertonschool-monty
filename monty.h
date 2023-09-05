@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-#ifndef monty_h
-#define monty_h
-#include <>
-=======
 #ifndef MONTY_H
 #define MONTY_H
 
@@ -18,7 +13,6 @@
 #include <ctype.h>
 
 
->>>>>>> e724d6433ffa936c5abc5bbc823d2d6f5cb75697
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -33,7 +27,7 @@ typedef struct stack_s
 int n;
 struct stack_s *prev;
 struct stack_s *next;
-} s_t;
+} stack_t;
 
 /**
  * struct instruction_s - opcode and its function
@@ -48,20 +42,13 @@ typedef struct instruction_s
 char *opcode;
 void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
-<<<<<<< HEAD
-/*Funciton protoypes*/
-void push(stack_t stack, unsigned int line_number);
-=======
 
-
-s_t *stack = NULL;
 
 /**
  * function prototypes
  */
 
-void pall(s_t **stack, unsigned int line_number);
+void pall(stack_t **stack, unsigned int line_number);
 
 
->>>>>>> e724d6433ffa936c5abc5bbc823d2d6f5cb75697
 #endif
