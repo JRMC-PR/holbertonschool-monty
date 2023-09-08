@@ -6,12 +6,12 @@
  */
 void push(m_stack_t **stack, unsigned int line_number)
 {
-	/*Declarations*/
+/*Declarations*/
 	char *token;
 	int value;
 	m_stack_t *new_node = malloc(sizeof(m_stack_t));
-
-	token = strtok(NULL, " "); /*tokenize*/
+	/*Tokenize*/
+	token = strtok(NULL, " ");
 	if (!token)
 	{
 		fprintf(stderr, "L%u: usage: push integer\n", line_number);
@@ -33,9 +33,7 @@ void push(m_stack_t **stack, unsigned int line_number)
 		(*stack)->prev = new_node;
 	} /*end stack if*/
 	*stack = new_node;
-} /*end push*/
-
-
+} /*end push function*/
 
 /**
  *pall - print all opcode
@@ -45,15 +43,17 @@ void push(m_stack_t **stack, unsigned int line_number)
 
 void pall(m_stack_t **stack, unsigned int line_number) // print all
 {
-	m_stack_t *current = *stack;
+/*Declarations*/
+	m_stack_t *tmp = *stack;
+	/*void unused parameter*/
 	(void)line_number;
-
-	while (current)
+	/*print everything in the stack*/
+	while (tmp)
 	{
-		printf("%d\n", current->n);
-		current = current->next;
-	}
-}
+		printf("%d\n", tmp->n);
+		tmp = tmp->next;
+	} /*end while*/
+} /*end pall function*/
 
 /**
  * pint - prints current int
@@ -63,10 +63,14 @@ void pall(m_stack_t **stack, unsigned int line_number) // print all
 
 void pint(m_stack_t **stack, unsigned int line_number) //print current
 {
-	//if error
-	//else
-	printf("%d\n", (*stack)->n);
-}
+/*check if the stck is empty*/
+	if (*stack == NULL)
+	{
+		perror("L<%f>: can't pint, stack empty", line_number);
+		exit(EXIT_FAILURE);
+	} /*end stack if*/
+	printf("%d",(*stack)->n);
+} /*end pint function*/
 
 /**
  * pop - remove item from stack
@@ -75,16 +79,20 @@ void pint(m_stack_t **stack, unsigned int line_number) //print current
  */
 void pop(m_stack_t **stack, unsigned int line_number) //remove from stack
 {
-	//if error
-	stack_t *tmp = *stack;
-	*stack = (*stack)->next;
+	m_stack_t *tmp;
 
+	if (*stack == NULL)
+	{
+		perror("L<%f>: can't pint, stack empty", line_number);
+		exit(EXIT_FAILURE);
+	} /*end stack if*/	
+	*tmp = *stack;
+	*stack = (*stack)->next;
+	/*check if stil in stack*/
 	if (*stack)
 		(*stack)->prev = NULL;
 
-	free(tmp);
-
-}
+	free(tmp);}
 
 /**
  * swap - swap top 2 elements of stack
@@ -94,12 +102,17 @@ void pop(m_stack_t **stack, unsigned int line_number) //remove from stack
 
 void swap(m_stack_t **stack, unsigned int line_number) //swap top 2 elements of stack
 {
-	//if for errors
+	int tmp;
+/*check if the stck is empty*/
+	if (*stack == NULL)
+	{
+		perror("L<%f>: can't pint, stack empty", line_number);
+		exit(EXIT_FAILURE);
+	} /*end stack if*/	
 
-	int tmp = (*stack)->n;
+	tmp = (*stack)->n;
 	(*stack)->n = (*stack)->next->n;
 	(*stack)->next->n = tmp;
-
 }
 
 /**
@@ -110,10 +123,14 @@ void swap(m_stack_t **stack, unsigned int line_number) //swap top 2 elements of 
 
 void add(m_stack_t **stack, unsigned int line_number) // add top 2 elements of stack
 {
-	//if for errors
+	/*check if the stck is empty*/
+	if (*stack == NULL)
+	{
+		perror("L<%f>: can't pint, stack empty", line_number);
+		exit(EXIT_FAILURE);
+	} /*end stack if*/
 	(*stack)->next->n += (*stack)->n;
-	//send to pop
-}
+	//send to pop}
 
 /**
  * nop - doesnt do anything
