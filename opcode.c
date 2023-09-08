@@ -43,7 +43,7 @@ void push(m_stack_t **stack, unsigned int line_number)
  *@line_number: lines in input;
  */
 
-void pall // print all
+void pall(m_stack_t **stack, unsigned int line_number) // print all
 {
 	m_stack_t *current = *stack;
 	(void)line_number;
@@ -55,14 +55,25 @@ void pall // print all
 	}
 }
 
-void pint //print current
+/**
+ * pint - prints current int
+ * @stack: array of data
+ * @line_number: line
+ */
+
+void pint(m_stack_t **stack, unsigned int line_number) //print current
 {
 	//if error
 	//else
 	printf("%d\n", (*stack)->n);
 }
 
-void pop //remove from stack
+/**
+ * pop - remove item from stack
+ * @stack: array of data
+ * @line_number: line
+ */
+void pop(m_stack_t **stack, unsigned int line_number) //remove from stack
 {
 	//if error
 	stack_t *tmp = *stack;
@@ -75,7 +86,13 @@ void pop //remove from stack
 
 }
 
-void swap //swap top 2 elements of stack
+/**
+ * swap - swap top 2 elements of stack
+ * @stack: array of data
+ * @line_number: line
+ */
+
+void swap(m_stack_t **stack, unsigned int line_number) //swap top 2 elements of stack
 {
 	//if for errors
 
@@ -85,15 +102,29 @@ void swap //swap top 2 elements of stack
 
 }
 
-void add // add top 2 elements of stack
+/**
+ * add - add top 2 elements of stack
+ * @stack: array of data
+ * @line_number: line
+ */
+
+void add(m_stack_t **stack, unsigned int line_number) // add top 2 elements of stack
 {
 	//if for errors
 	(*stack)->next->n += (*stack)->n;
 	//send to pop
 }
 
-void nop
+/**
+ * nop - doesnt do anything
+ * @stack: array of data
+ * @line_number: line
+ */
+
+void nop(m_stack_t **stack, unsigned int line_number)
 {
+	(void) stack;
+	(void) line_number;
  //void everything given to func
 }
 
