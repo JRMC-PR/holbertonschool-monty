@@ -62,11 +62,85 @@ void pall(m_stack_t **stack, unsigned int line_number)
 void pint(m_stack_t **stack, unsigned int line_number)
 {
 	/*check if the stck is empty*/
-	if (*stack != NULL)
-		printf("%d",(*stack)->n);
+	if (*stack == NULL)
 	{
-		perror("L<line_number>: can't pint, stack empty");
+		perror("L<%f>: can't pint, stack empty", line_number);
 		exit(EXIT_FAILURE);
 	} /*end stack if*/
+	printf("%d",(*stack)->n);
 } /*end pint function*/
 
+/**
+ * pop - remove item from stack
+ * @stack: array of data
+ * @line_number: line
+ */
+void pop(m_stack_t **stack, unsigned int line_number) //remove from stack
+{
+	/*check if the stck is empty*/
+	if (*stack == NULL)
+	{
+		perror("L<%f>: can't pint, stack empty", line_number);
+		exit(EXIT_FAILURE);
+	} /*end stack if*/	
+	stack_t *tmp = *stack;
+	*stack = (*stack)->next;
+	/*check if stil in stack*/
+	if (*stack)
+		(*stack)->prev = NULL;
+
+	free(tmp);
+
+}
+
+/**
+ * swap - swap top 2 elements of stack
+ * @stack: array of data
+ * @line_number: line
+ */
+
+void swap(m_stack_t **stack, unsigned int line_number) //swap top 2 elements of stack
+{
+	/*check if the stck is empty*/
+	if (*stack == NULL)
+	{
+		perror("L<%f>: can't pint, stack empty", line_number);
+		exit(EXIT_FAILURE);
+	} /*end stack if*/	
+
+	int tmp = (*stack)->n;
+	(*stack)->n = (*stack)->next->n;
+	(*stack)->next->n = tmp;
+
+}
+
+/**
+ * add - add top 2 elements of stack
+ * @stack: array of data
+ * @line_number: line
+ */
+
+void add(m_stack_t **stack, unsigned int line_number) // add top 2 elements of stack
+{
+	/*check if the stck is empty*/
+	if (*stack == NULL)
+	{
+		perror("L<%f>: can't pint, stack empty", line_number);
+		exit(EXIT_FAILURE);
+	} /*end stack if*/
+	(*stack)->next->n += (*stack)->n;
+	//send to pop
+}
+
+/**
+ * nop - doesnt do anything
+ * @stack: array of data
+ * @line_number: line
+ */
+
+void nop(m_stack_t **stack, unsigned int line_number)
+{
+	(void) stack;
+	(void) line_number;
+ //void everything given to func
+}
