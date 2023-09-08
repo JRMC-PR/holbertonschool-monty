@@ -4,7 +4,7 @@
  * @tokI: The command string to tokenize
  * @env: The environment variables
  */
-void Tok(char *tokI, char **env)
+char **Tok(char *opcode)
 {
 	/*declaration*/
 	char *tok = NULL, **tokens = NULL;
@@ -34,30 +34,31 @@ void Tok(char *tokI, char **env)
  *@line_number: holds the line number of the file read
  *Return: function pointer
  */
-char (*get_func(char **T_op, unsigned int line_number)(m_stack_t, unsigned int))
+char *get_func(char **T_op, unsigned int line_number)(m_stack_t, unsigned int)
 {
 	/*Daclarations*/
 	int i = 0;
-	insturction_t instuctions[] {
+	instruction_t instructions[] = {
 		{"push", push},
-			{"pall", pall},
-			{"pint", pint},
-			{"pop", pop},
-			{"swap", swap},
-			{"add", add},
-			{"nop", nop},
-			{NULL, NULL},
+		{"pall", pall},
+		{"pint", pint},
+		{"pop", pop},
+		{"swap", swap},
+		{"add", add},
+		{"nop", nop},
+		{NULL, NULL},
 	};
 	while (instructions[i].opcode){
 		/*verify if match*/
-		if (T_op[0] == instuctions[i].opcode)
-			return (instuctions[i].f);
+		if (T_op[0] == instructions[i].opcode)
+			return (instructions[i].f);
 		i++; /*move to the next option*/
 	} /*end while loop*/
 	if (i == 7){
-		fprintf(stderr, "L<%f>: unknown instruction <%s>\n", line_number, T_op[0]);
+		fprintf(stderr, "L<%d>: unknown instruction <%s>\n", line_number, T_op[0]);
 		exit(EXIT_FAILURE);
 	} /*end positon if*/
+	return (NULL);
 } /*end get_func*/
 
 /**
@@ -67,14 +68,14 @@ char (*get_func(char **T_op, unsigned int line_number)(m_stack_t, unsigned int))
  */
 char *trim(char *opcode)
 {
-	char *end = str + strlen(str) - 1; /*Pointer to the end of the string */
+	char *end = opcode + strlen(opcode) - 1; /*Pointer to the end of the string */
 
 	/* Remove leading whitespace */
 	while (isspace((unsigned char)(*opcode)))
 		opcode++;
 
 	/* Remove trailing whitespace */
-	while (end > str && isspace((unsigned char)*end))
+	while (end > opcode && isspace((unsigned char)*end))
 		end--;
 
 	/* Null-terminate the trimmed string */
