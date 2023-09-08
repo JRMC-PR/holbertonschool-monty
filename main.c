@@ -14,23 +14,23 @@ int main(int argc, char *argv[])
 	/*Declarations*/
 	char *opcode = NULL, T_op = NULL;
 	char (*valid_func)(m_stack_t)(unsigned int);
+
 	unsigned int line_number = 0;
 	size_t len = 0;
 	ssize_t read;
-
-	if (argc != 2) /*validate input*/
+	/*verify input*/
+	if (argc != 2)
 	{
 		fprintf(stderr, "Usage: %s <file>\n", argv[0]);
 		exit(EXIT_FAILURE);
 	}
 	/*open file*/
 	FILE *file = fopen(argv[1], "r");
-	if (!file) /*validate*/
+	if (!file)
 	{
 		perror("Error opening file");
 		exit(EXIT_FAILURE);
-	}
-
+	} /*end file if*/
 	while ((read = getline(&opcode, &len, file)) != -1)
 	{
 		line_number++;
@@ -42,6 +42,7 @@ int main(int argc, char *argv[])
 	} /*end read while*/
 	return (0);
 } /*end main function*/
+
 
 
 
