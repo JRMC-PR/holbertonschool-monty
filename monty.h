@@ -49,5 +49,10 @@ void (*f)(m_stack_t **stack, unsigned int line_number);
 
 void pall(m_stack_t **stack, unsigned int line_number);
 void push(m_stack_t **stack, unsigned int line_number);
+void pint(m_stack_t **stack, unsigned int line_number);
+char (*get_func(char **T_op, unsigned int line_nuber)(m_stack_t, unsigned int);
+char **Tok(char *opcode);
+char *trim(*opcode);
+
 
 #endif
