@@ -1,6 +1,6 @@
 #include "monty.h"
 
-m_stack_t *g_stack = NULL;
+m_stack_t **g_stack = NULL;
 
 /**
  * main - main functuon
@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
 	unsigned int line_number = 0;
 	size_t len = 0;
 	ssize_t read;
+	void (*valid_func)(m_stack_t **, unsigned int);
 
 	if (argc != 2)
 	{
@@ -31,12 +32,15 @@ int main(int argc, char *argv[])
 	{
 		line_number++;
 		opcode[strlen(opcode) + 1] = '\0'; /* Remove trailing newline */
-		printf("Before trim\n");
+		printf("Before trim\n"); /*test*/
 		opcode = trim(opcode);
-		printf("before Tok");
+		printf("before Tok: %s \n", opcode); /*test*/
 		T_op = Tok(opcode);
-		printf("%s", T_op[0]);
+		printf("%s %s", T_op[0], T_op[1]); /*test*/
+		valid_func = get_func(T_op, line_number);
+		valid_func(g_stack, line_number);
 	} /*end while*/
+	free_token(T_op);
 	free(opcode);
 	fclose(file);
 	exit(EXIT_SUCCESS);

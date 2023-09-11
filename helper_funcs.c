@@ -7,7 +7,7 @@
 char **Tok(char *opcode)
 {
 	/*declaration*/
-	char *tok = NULL, **tokens = NULL;
+	char *tok = NULL, **tokens = malloc((sizeof(opcode) - 1) * sizeof(char *)); ;
 	int count = 0;
 	/*Break it*/
 	tok = strtok(opcode, " ");
@@ -16,12 +16,13 @@ char **Tok(char *opcode)
 		exit(EXIT_FAILURE);
 	} /*end tok if*/
 	while (tok != NULL){
-		tokens[count] = malloc(strlen(tok));
+		tokens[count] = malloc((sizeof(tok) - 1) * sizeof(char *));
 		if (tokens[count] == NULL){
 			fprintf(stderr, "Error: Tokens malloc fail");
+			free_token(tokens);
 			exit(EXIT_FAILURE);
 		} /*end tokens if*/
-		tokens[count] = strdup(tok);
+		tokens[count] = tok;
 		count++;
 		tok = strtok(NULL, " ");
 	} /*end tok while*/
@@ -50,7 +51,7 @@ void (*get_func(char **T_op, unsigned int line_number))(m_stack_t **, unsigned i
 	};
 	while (instructions[i].opcode){
 		/*verify if match*/
-		if (T_op[0] == instructions[i].opcode)
+		if (strcmp(T_op[0], instructions[i].opcode) == 0)
 			return (instructions[i].f);
 		i++; /*move to the next option*/
 	} /*end while loop*/
@@ -69,17 +70,29 @@ void (*get_func(char **T_op, unsigned int line_number))(m_stack_t **, unsigned i
 char *trim(char *opcode)
 {
 	char *end = opcode + strlen(opcode); /*Pointer to the end of the string */
-
 	/* Remove leading whitespace */
 	while (isspace((unsigned char)(*opcode)))
 		opcode++;
-
 	/* Remove trailing whitespace */
 	while (end > opcode && isspace((unsigned char)*end))
 		end--;
-
 	/* Null-terminate the trimmed string */
 	*(end + 1) = '\0';
-
 	return (opcode); /* Return the trimmed string */
-}
+} /*end trim function*/
+
+/**
+ * free_token - Frees memory allocated for token array and token strings
+ * @tokI: The token array to be freed
+ * @counter: The number of tokens in the array
+ */
+void free_token(char **toki)
+{
+	int i;/*counter variable*/
+	/*Free array if pointers*/
+	for (i = 0; toki[i] != NULL; i++)
+	{
+		free(toki[i]);
+	}
+	free(toki);
+} /*end free_token function*/
