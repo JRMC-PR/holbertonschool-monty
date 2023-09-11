@@ -4,7 +4,7 @@
  *@head::a pointer to the head of the stack
  *@line_number:data to be stored
  */
-void push(m_stack_t **stack, unsigned int line_number,)
+void push(m_stack_t **stack, unsigned int line_number)
 {
 	/*Declarations*/
 	char *token;
@@ -14,14 +14,14 @@ void push(m_stack_t **stack, unsigned int line_number,)
 	token = strtok(NULL, " ");
 	if (!token)
 	{
-		fprintf(stderr, "L%u: usage: push integer\n", line_number);
+		dprintf(STDERR_FILENO, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	} /*end token if*/
 	/*store data*/
 	value = atoi(token);
 	if (!new_node)
 	{
-		fprintf(stderr, "Error: malloc failed\n");
+		dprintf(STDERR_FILENO, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	} /*end node if*/
 	/*fill the new node*/
@@ -64,7 +64,7 @@ void pint(m_stack_t **stack, unsigned int line_number)
 	/*check if the stck is empty*/
 	if (*stack == NULL)
 	{
-		perror("L<%f>: can't pint, stack empty", line_number);
+		dprintf(STDERR_FILENO, "L%d: can't pint, stack empty\n", line_number);
 		exit(EXIT_FAILURE);
 	} /*end stack if*/
 	printf("%d",(*stack)->n);
@@ -80,10 +80,10 @@ void pop(m_stack_t **stack, unsigned int line_number) //remove from stack
 	/*check if the stck is empty*/
 	if (*stack == NULL)
 	{
-		perror("L<%f>: can't pint, stack empty", line_number);
+		dprintf(STDERR_FILENO, "L%d: can't pop an empty stack\n", line_number);
 		exit(EXIT_FAILURE);
 	} /*end stack if*/	
-	stack_t *tmp = *stack;
+	m_stack_t *tmp = *stack;
 	*stack = (*stack)->next;
 	/*check if stil in stack*/
 	if (*stack)
@@ -104,7 +104,7 @@ void swap(m_stack_t **stack, unsigned int line_number) //swap top 2 elements of 
 	/*check if the stck is empty*/
 	if (*stack == NULL)
 	{
-		perror("L<%f>: can't pint, stack empty", line_number);
+		dprintf(STDERR_FILENO, "L%d: can't swap, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	} /*end stack if*/	
 
@@ -125,7 +125,7 @@ void add(m_stack_t **stack, unsigned int line_number) // add top 2 elements of s
 	/*check if the stck is empty*/
 	if (*stack == NULL)
 	{
-		perror("L<%f>: can't pint, stack empty", line_number);
+		dprintf(STDERR_FILENO, "L%d: can't add, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	} /*end stack if*/
 	(*stack)->next->n += (*stack)->n;

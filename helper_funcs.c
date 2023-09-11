@@ -34,7 +34,7 @@ char **Tok(char *opcode)
  *@line_number: holds the line number of the file read
  *Return: function pointer
  */
-char *get_func(char **T_op, unsigned int line_number)(m_stack_t, unsigned int)
+void (*get_func(char **T_op))(m_stack_t, unsigned int)
 {
 	/*Daclarations*/
 	int i = 0;
@@ -54,10 +54,6 @@ char *get_func(char **T_op, unsigned int line_number)(m_stack_t, unsigned int)
 			return (instructions[i].f);
 		i++; /*move to the next option*/
 	} /*end while loop*/
-	if (i == 7){
-		fprintf(stderr, "L<%d>: unknown instruction <%s>\n", line_number, T_op[0]);
-		exit(EXIT_FAILURE);
-	} /*end positon if*/
 	return (NULL);
 } /*end get_func*/
 
