@@ -1,7 +1,7 @@
 #include "monty.h"
 /**
  *push - adds to the stack
- *@head::a pointer to the head of the stack
+ *@stack:a pointer to the head of the stack
  *@line_number:data to be stored
  */
 void push(m_stack_t **stack, unsigned int line_number)
@@ -67,7 +67,7 @@ void pint(m_stack_t **stack, unsigned int line_number)
 		fprintf(stderr, "L<%d>: can't pint, stack empty", line_number);
 		exit(EXIT_FAILURE);
 	} /*end stack if*/
-	printf("%d",(*stack)->n);
+	printf("%d", (*stack)->n);
 } /*end pint function*/
 
 /**
@@ -75,7 +75,7 @@ void pint(m_stack_t **stack, unsigned int line_number)
  * @stack: array of data
  * @line_number: line
  */
-void pop(m_stack_t **stack, unsigned int line_number) //remove from stack
+void pop(m_stack_t **stack, unsigned int line_number)
 {
 	m_stack_t *tmp;
 	/*check if the stck is empty*/
@@ -83,7 +83,7 @@ void pop(m_stack_t **stack, unsigned int line_number) //remove from stack
 	{
 		fprintf(stderr, "L<%d>: can't pint, stack empty", line_number);
 		exit(EXIT_FAILURE);
-	} /*end stack if*/	
+	} /*end stack if*/
 	 tmp = *stack;
 	*stack = (*stack)->next;
 	/*check if stil in stack*/
@@ -98,7 +98,7 @@ void pop(m_stack_t **stack, unsigned int line_number) //remove from stack
  * @line_number: line
  */
 
-void swap(m_stack_t **stack, unsigned int line_number) //swap top 2 elements of stack
+void swap(m_stack_t **stack, unsigned int line_number)
 {
 	int tmp;
 	/*check if the stck is empty*/
@@ -106,39 +106,10 @@ void swap(m_stack_t **stack, unsigned int line_number) //swap top 2 elements of 
 	{
 		fprintf(stderr, "L<%d>: can't pint, stack empty", line_number);
 		exit(EXIT_FAILURE);
-	} /*end stack if*/	
+	} /*end stack if*/
 	tmp = (*stack)->n;
 	(*stack)->n = (*stack)->next->n;
 	(*stack)->next->n = tmp;
 } /*end swap function*/
 
-/**
- * add - add top 2 elements of stack
- * @stack: array of data
- * @line_number: line
- */
 
-void add(m_stack_t **stack, unsigned int line_number) // add top 2 elements of stack
-{
-	/*check if the stck is empty*/
-	if (*stack == NULL)
-	{
-		fprintf(stderr, "L<%d>: can't pint, stack empty", line_number);
-		exit(EXIT_FAILURE);
-	} /*end stack if*/
-	(*stack)->next->n += (*stack)->n;
-	//send to pop
-} /*end add fucntion*/
-
-/**
- * nop - doesnt do anything
- * @stack: array of data
- * @line_number: line
- */
-
-void nop(m_stack_t **stack, unsigned int line_number)
-{
-	(void) stack;
-	(void) line_number;
- //void everything given to func
-} /*end nop function*/

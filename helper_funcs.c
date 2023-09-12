@@ -1,23 +1,26 @@
 #include "monty.h"
 /**
  * Tok - Tokenize a command string and execute it
- * @tokI: The command string to tokenize
- * @env: The environment variables
+ * @opcode: input
+ * Return: pointer to tokens
  */
 char **Tok(char *opcode)
 {
 	/*declaration*/
-	char *tok = NULL, **tokens = malloc((sizeof(opcode) - 1) * sizeof(char *)); ;
+	char *tok = NULL, **tokens = malloc((sizeof(opcode) - 1) * sizeof(char *));
 	int count = 0;
 	/*Break it*/
 	tok = strtok(opcode, " ");
-	if (tok == NULL){ /*verify data*/
-		fprintf(stderr,"Error: nothing to Tok");
+	if (tok == NULL)
+	{ /*verify data*/
+		fprintf(stderr, "Error: nothing to Tok");
 		exit(EXIT_FAILURE);
 	} /*end tok if*/
-	while (tok != NULL){
+	while (tok != NULL)
+	{
 		tokens[count] = malloc((sizeof(tok) - 1) * sizeof(char *));
-		if (tokens[count] == NULL){
+		if (tokens[count] == NULL)
+		{
 			fprintf(stderr, "Error: Tokens malloc fail");
 			free_token(tokens);
 			exit(EXIT_FAILURE);
@@ -30,12 +33,12 @@ char **Tok(char *opcode)
 }
 
 /**
- *get_func - gets function o to be used
- *@T-op: pointer to tokenizd input
+ *getf - gets function o to be used
+ *@T_op: pointer to tokenizd input
  *@line_number: holds the line number of the file read
  *Return: function pointer
  */
-void (*get_func(char **T_op, unsigned int line_number))(m_stack_t **, unsigned int)
+void (*getf(char **T_op, unsigned int line_number))(m_stack_t **, unsigned int)
 {
 	/*Daclarations*/
 	int i = 0;
@@ -49,13 +52,15 @@ void (*get_func(char **T_op, unsigned int line_number))(m_stack_t **, unsigned i
 		{"nop", nop},
 		{NULL, NULL},
 	};
-	while (instructions[i].opcode){
+	while (instructions[i].opcode)
+	{
 		/*verify if match*/
 		if (strcmp(T_op[0], instructions[i].opcode) == 0)
 			return (instructions[i].f);
 		i++; /*move to the next option*/
 	} /*end while loop*/
-	if (i == 7){
+	if (i == 7)
+	{
 		fprintf(stderr, "L<%d>: unknown instruction <%s>\n", line_number, T_op[0]);
 		exit(EXIT_FAILURE);
 	} /*end positon if*/
@@ -64,7 +69,7 @@ void (*get_func(char **T_op, unsigned int line_number))(m_stack_t **, unsigned i
 
 /**
  * trim - Remove leading and trailing whitespace from a string
- * @str: The string to trim
+ * @opcode: The string to trim
  * Return: A pointer to the trimmed string
  */
 char *trim(char *opcode)
@@ -83,8 +88,7 @@ char *trim(char *opcode)
 
 /**
  * free_token - Frees memory allocated for token array and token strings
- * @tokI: The token array to be freed
- * @counter: The number of tokens in the array
+ * @toki: The token array to be freed
  */
 void free_token(char **toki)
 {
