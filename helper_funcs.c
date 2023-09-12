@@ -1,44 +1,11 @@
 #include "monty.h"
 /**
- * Tok - Tokenize a command string and execute it
- * @opcode: input
- * Return: pointer to tokens
- */
-void **Tok(char *opcode, char **tokens)
-{
-	/*declaration*/
-	char *tok = NULL;
-	 int count = 0;
-	/*Break it*/
-	tok = strtok(opcode, " ");
-	if (tok == NULL)
-	{ /*verify data*/
-		fprintf(stderr, "Error: nothing to Tok");
-		exit(EXIT_FAILURE);
-	} /*end tok if*/
-	while (tok != NULL)
-	{
-		tokens[count] = malloc((sizeof(tok) - 1) * sizeof(char *));
-		if (tokens[count] == NULL)
-		{
-			fprintf(stderr, "Error: Tokens malloc fail");
-			free_token(tokens);
-			exit(EXIT_FAILURE);
-		} /*end tokens if*/
-		tokens[count] = tok;
-		count++;
-		tok = strtok(NULL, "$");
-	} /*end tok while*/
-	return(0);
-}
-
-/**
  *getf - gets function o to be used
  *@T_op: pointer to tokenizd input
  *@line_number: holds the line number of the file read
  *Return: function pointer
  */
-void (*getf(char **T_op, unsigned int line_number))(m_stack_t **, unsigned int)
+void (*getf(char *T_op, unsigned int line_number))(m_stack_t **, unsigned int)
 {
 	/*Daclarations*/
 	int i = 0;
@@ -55,13 +22,17 @@ void (*getf(char **T_op, unsigned int line_number))(m_stack_t **, unsigned int)
 	while (instructions[i].opcode)
 	{
 		/*verify if match*/
-		if (strcmp(T_op[0], instructions[i].opcode) == 0)
-			return (instructions[i].f);
+		if (strcmp(T_op, instructions[i].opcode) == 0)
+		{
+			printf(" inside get\n");
+			instructions[i].f(g_stack, line_number);
+			return(0);
+		}
 		i++; /*move to the next option*/
 	} /*end while loop*/
 	if (i == 7)
 	{
-		fprintf(stderr, "L<%d>: unknown instruction <%s>\n", line_number, T_op[0]);
+		fprintf(stderr, "L<%d>: unknown instruction <%s>\n", line_number, T_op);
 		exit(EXIT_FAILURE);
 	} /*end positon if*/
 	return (0);

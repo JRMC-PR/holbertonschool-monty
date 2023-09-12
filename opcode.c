@@ -7,25 +7,24 @@
 void push(m_stack_t **stack, unsigned int line_number)
 {
 	/*Declarations*/
-	char *token;
-	int value;
+	char *token, *end;
 	m_stack_t *new_node = malloc(sizeof(m_stack_t));
 	/*Tokenize*/
-	token = strtok(NULL, " ");
+	printf("inside push\n");
+	token = strtok(NULL, " $");
+	printf("integer: %s", token);
 	if (!token)
 	{
 		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	} /*end token if*/
-	/*store data*/
-	value = atoi(token);
 	if (!new_node)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	} /*end node if*/
 	/*fill the new node*/
-	new_node->n = value;
+	new_node->n = strtol(token, &end, 10);
 	new_node->prev = NULL;
 	new_node->next = *stack;
 	if (stack)

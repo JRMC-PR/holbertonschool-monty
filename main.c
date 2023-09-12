@@ -1,7 +1,5 @@
 #include "monty.h"
 
-m_stack_t **g_stack;
-
 /**
  * main - main functuon
  * @argc: arguments
@@ -11,12 +9,10 @@ m_stack_t **g_stack;
 
 int main(int argc, char *argv[])
 {
-	char *opcode = NULL, *endp = NULL;
+	char *opcode = NULL, *option = NULL;
 	unsigned int line_number = 0;
 	size_t len = 0;
 	ssize_t read;
-	void (*valid_func)(m_stack_t **, unsigned int);
-	char **tokens = NULL;
 
 	if (argc != 2)
 	{
@@ -36,17 +32,12 @@ int main(int argc, char *argv[])
 		opcode[strlen(opcode) + 1] = '\0'; /* Remove trailing newline */
 		/*printf("Before trim\n");*/ /*test*/
 		opcode = trim(opcode);
-		tokens = malloc((sizeof(opcode) - 1) * sizeof(char *));
-		/*printf("before Tok: %s \n", opcode);*/ /*test*/
-		Tok(opcode, tokens);
-		printf("%s---%s", tokens[0], tokens[1]); /*test*/
-		valid_func = getf(tokens, line_number);
-		/*add data tho the stack node tobe passed to the new fucntion*/
-		(*g_stack)->n = strtol(tokens[1], &endp, 10); /*test invalid size 8 error poop up */
-		valid_func(g_stack, line_number);
+		option = strtok(opcode, " \n\t$");
+		printf("token: %s\n", option); /*test*/
+		getf(option, line_number);
+
 	} /*end while*/
 	free(opcode);
-	free_token(tokens);
 	fclose(file);
 	exit(EXIT_SUCCESS);
 } /*end function*/
