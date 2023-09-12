@@ -4,11 +4,11 @@
  * @opcode: input
  * Return: pointer to tokens
  */
-char **Tok(char *opcode)
+void **Tok(char *opcode, char **tokens)
 {
 	/*declaration*/
-	char *tok = NULL, **tokens = malloc((sizeof(opcode) - 1) * sizeof(char *));
-	int count = 0;
+	char *tok = NULL;
+	 int count = 0;
 	/*Break it*/
 	tok = strtok(opcode, " ");
 	if (tok == NULL)
@@ -29,7 +29,7 @@ char **Tok(char *opcode)
 		count++;
 		tok = strtok(NULL, "$");
 	} /*end tok while*/
-	return (tokens);
+	return(0);
 }
 
 /**
@@ -94,7 +94,7 @@ void free_token(char **toki)
 {
 	int i;/*counter variable*/
 	/*Free array if pointers*/
-	for (i = 0; toki[i] != NULL; i++)
+	for (i = 0; toki == NULL; i++)
 	{
 		free(toki[i]);
 	}

@@ -16,6 +16,7 @@ int main(int argc, char *argv[])
 	size_t len = 0;
 	ssize_t read;
 	void (*valid_func)(m_stack_t **, unsigned int);
+	char **tokens = NULL;
 
 	if (argc != 2)
 	{
@@ -35,16 +36,18 @@ int main(int argc, char *argv[])
 		opcode[strlen(opcode) + 1] = '\0'; /* Remove trailing newline */
 		/*printf("Before trim\n");*/ /*test*/
 		opcode = trim(opcode);
+		tokens = malloc((sizeof(opcode) - 1) * sizeof(char *));
 		/*printf("before Tok: %s \n", opcode);*/ /*test*/
-		T_op = Tok(opcode);
-		/*printf("%s %s", T_op[0], T_op[1]);*/ /*test*/
-		valid_func = getf(T_op, line_number);
+		Tok(opcode, tokens);
+		printf("%s %s", tokens[0], tokens[1]); /*test*/
+		valid_func = getf(tokens, line_number);
 		/*add data tho the stack node tobe passed to the new fucntion*/
-		/*(*g_stack)->n = atoi(T_op[1]);*/ /*test invalid size 8 error poop up */
+		//(*g_stack)->n = atoi(tokens[0]); /*test invalid size 8 error poop up */
 		valid_func(g_stack, line_number);
 	} /*end while*/
 	free_token(T_op);
 	free(opcode);
+	free_token(tokens);
 	fclose(file);
 	exit(EXIT_SUCCESS);
 } /*end function*/
