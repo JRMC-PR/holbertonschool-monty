@@ -1,6 +1,6 @@
 #include "monty.h"
 
-m_stack_t **g_stack = NULL;
+m_stack_t **g_stack;
 
 /**
  * main - main functuon
@@ -11,7 +11,7 @@ m_stack_t **g_stack = NULL;
 
 int main(int argc, char *argv[])
 {
-	char *opcode = NULL, **T_op = NULL;
+	char *opcode = NULL, *endp = NULL;
 	unsigned int line_number = 0;
 	size_t len = 0;
 	ssize_t read;
@@ -39,13 +39,12 @@ int main(int argc, char *argv[])
 		tokens = malloc((sizeof(opcode) - 1) * sizeof(char *));
 		/*printf("before Tok: %s \n", opcode);*/ /*test*/
 		Tok(opcode, tokens);
-		/*printf("%s %s", tokens[0], tokens[1]);*/ /*test*/
+		printf("%s---%s", tokens[0], tokens[1]); /*test*/
 		valid_func = getf(tokens, line_number);
 		/*add data tho the stack node tobe passed to the new fucntion*/
-		(*g_stack)->n = atoi(tokens[0]); /*test invalid size 8 error poop up */
+		(*g_stack)->n = strtol(tokens[1], &endp, 10); /*test invalid size 8 error poop up */
 		valid_func(g_stack, line_number);
 	} /*end while*/
-	free_token(T_op);
 	free(opcode);
 	free_token(tokens);
 	fclose(file);

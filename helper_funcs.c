@@ -94,7 +94,7 @@ void free_token(char **toki)
 {
 	int i;/*counter variable*/
 	/*Free array if pointers*/
-	for (i = 0; toki == NULL; i++)
+	for (i = 0; toki[i] != NULL; i++)
 	{
 		free(toki[i]);
 	}
