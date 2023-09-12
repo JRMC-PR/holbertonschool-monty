@@ -1,6 +1,6 @@
 #include "monty.h"
 
-m_stack_t **g_stack = NULL;
+ m_stack_t **g_stack = NULL;
 
 /**
  * main - main functuon
@@ -32,12 +32,14 @@ int main(int argc, char *argv[])
 	{
 		line_number++;
 		opcode[strlen(opcode) + 1] = '\0'; /* Remove trailing newline */
-		printf("Before trim\n"); /*test*/
+		/*printf("Before trim\n");*/ /*test*/
 		opcode = trim(opcode);
-		printf("before Tok: %s \n", opcode); /*test*/
+		/*printf("before Tok: %s \n", opcode);*/ /*test*/
 		T_op = Tok(opcode);
-		printf("%s %s", T_op[0], T_op[1]); /*test*/
+		/*printf("%s %s", T_op[0], T_op[1]);*/ /*test*/
 		valid_func = get_func(T_op, line_number);
+		/*add data tho the stack node tobe passed to the new fucntion*/
+		/*(*g_stack)->n = atoi(T_op[1]);*/ /*test invalid size 8 error poop up */
 		valid_func(g_stack, line_number);
 	} /*end while*/
 	free_token(T_op);

@@ -24,7 +24,7 @@ char **Tok(char *opcode)
 		} /*end tokens if*/
 		tokens[count] = tok;
 		count++;
-		tok = strtok(NULL, " ");
+		tok = strtok(NULL, "$");
 	} /*end tok while*/
 	return (tokens);
 }
