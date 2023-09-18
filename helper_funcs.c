@@ -12,6 +12,7 @@ void (*getf(char *T_op, unsigned int line_number))(m_stack_t **, unsigned int)
 	instruction_t instructions[] = {
 		{"push", push},
 		{"pall", pall},
+			printf(" inside get\n");
 		{"pint", pint},
 		{"pop", pop},
 		{"swap", swap},
@@ -31,7 +32,7 @@ void (*getf(char *T_op, unsigned int line_number))(m_stack_t **, unsigned int)
 	} /*end while loop*/
 	if (i == 7)
 	{
-		fprintf(stderr, "L<%d>: unknown instruction <%s>\n", line_number, T_op);
+		fprintf(stderr, "L%d: unknown instruction %s\n", line_number, T_op);
 		exit(EXIT_FAILURE);
 	} /*end positon if*/
 	return (0);

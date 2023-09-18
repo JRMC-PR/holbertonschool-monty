@@ -23,14 +23,14 @@ int main(int argc, char *argv[])
 	*g_stack = NULL;
 	if (argc != 2)
 	{
-		fprintf(stderr, "Usage: %s <file>\n", argv[0]);
+		fprintf(stderr, "USAGE: %s \n", argv[0]);
 		exit(EXIT_FAILURE);
 	} /*end argc if*/
 	FILE *file = fopen(argv[1], "r"); /*open file*/
 
 	if (!file)
 	{
-		perror("Error opening file");
+		fprintf(stderr, "Error: Can't open file HoLbErToN\n");
 		exit(EXIT_FAILURE);
 	} /*end File if*/
 	while ((read = getline(&opcode, &len, file)) != -1)
