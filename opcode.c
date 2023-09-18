@@ -63,7 +63,7 @@ void pint(m_stack_t **stack, unsigned int line_number)
 	/*check if the stck is empty*/
 	if (*stack == NULL)
 	{
-		fprintf(stderr, "L<%d>: can't pint, stack empty", line_number);
+		fprintf(stderr, "L%d: can't pint, stack empty", line_number);
 		exit(EXIT_FAILURE);
 	} /*end stack if*/
 	printf("%d", (*stack)->n);
@@ -80,7 +80,7 @@ void pop(m_stack_t **stack, unsigned int line_number)
 	/*check if the stck is empty*/
 	if (*stack == NULL)
 	{
-		fprintf(stderr, "L<%d>: can't pint, stack empty", line_number);
+		fprintf(stderr, "L%d: can't pop, stack empty", line_number);
 		exit(EXIT_FAILURE);
 	} /*end stack if*/
 	 tmp = *stack;
@@ -103,7 +103,7 @@ void swap(m_stack_t **stack, unsigned int line_number)
 	/*check if the stck is empty*/
 	if (*stack == NULL)
 	{
-		fprintf(stderr, "L<%d>: can't pint, stack empty", line_number);
+		fprintf(stderr, "L%d: can't swap, stack empty", line_number);
 		exit(EXIT_FAILURE);
 	} /*end stack if*/
 	tmp = (*stack)->n;
