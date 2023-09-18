@@ -103,7 +103,7 @@ void swap(m_stack_t **stack, unsigned int line_number)
 	/*check if the stck is empty*/
 	if (*stack == NULL)
 	{
-		fprintf(stderr, "L%d: can't swap an empty stack", line_number);
+		fprintf(stderr, "L%d: can't swap, stack too short", line_number);
 		exit(EXIT_FAILURE);
 	} /*end stack if*/
 	tmp = (*stack)->n;
