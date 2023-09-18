@@ -60,13 +60,14 @@ char *trim(char *opcode)
  * free_token - Frees memory allocated for token array and token strings
  * @toki: The token array to be freed
  */
-void free_token(char **toki)
+void free_token(m_stack_t **toki)
 {
-	int i;/*counter variable*/
+	m_stack_t *current;
 	/*Free array if pointers*/
-	for (i = 0; toki[i] != NULL; i++)
+	while (toki != NULL)
 	{
-		free(toki[i]);
+		current = *toki;
+		*toki = (*toki)->next;
+		free(current);
 	}
-	free(toki);
 } /*end free_token function*/

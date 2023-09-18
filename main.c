@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 
 	} /*end while*/
 	free(opcode);
-	free(g_stack);
+	free_token(g_stack);
 	fclose(file);
 	exit(EXIT_SUCCESS);
 } /*end function*/
