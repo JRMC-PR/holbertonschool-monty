@@ -24,9 +24,8 @@ void (*getf(char *T_op, unsigned int line_number))(m_stack_t **, unsigned int)
 		/*verify if match*/
 		if (strcmp(T_op, instructions[i].opcode) == 0)
 		{
-			printf(" inside get\n");
 			instructions[i].f(g_stack, line_number);
-			return(0);
+			return (0);
 		}
 		i++; /*move to the next option*/
 	} /*end while loop*/

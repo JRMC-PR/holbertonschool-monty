@@ -4,7 +4,7 @@
  * main - main functuon
  * @argc: arguments
  * @argv: argument array
- * return: int
+ * Return: int
  */
 
 int main(int argc, char *argv[])
@@ -14,6 +14,13 @@ int main(int argc, char *argv[])
 	size_t len = 0;
 	ssize_t read;
 
+	g_stack = malloc(sizeof(m_stack_t *));
+	if (!g_stack)
+	{
+		fprintf(stderr, "Error: malloc failed\n");
+		exit(EXIT_FAILURE);
+	}
+	*g_stack = NULL;
 	if (argc != 2)
 	{
 		fprintf(stderr, "Usage: %s <file>\n", argv[0]);
@@ -30,14 +37,13 @@ int main(int argc, char *argv[])
 	{
 		line_number++;
 		opcode[strlen(opcode) + 1] = '\0'; /* Remove trailing newline */
-		/*printf("Before trim\n");*/ /*test*/
 		opcode = trim(opcode);
 		option = strtok(opcode, " \n\t$");
-		printf("token: %s\n", option); /*test*/
 		getf(option, line_number);
 
 	} /*end while*/
 	free(opcode);
+	free(g_stack);
 	fclose(file);
 	exit(EXIT_SUCCESS);
 } /*end function*/
