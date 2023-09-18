@@ -59,7 +59,7 @@ void add(m_stack_t **stack, unsigned int line_number)
 	/*check if the stck is empty*/
 	if (*stack == NULL)
 	{
-		fprintf(stderr, "L<%d>: can't add, stack too short", line_number);
+		fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	} /*end stack if*/
 	(*stack)->next->n += (*stack)->n;
