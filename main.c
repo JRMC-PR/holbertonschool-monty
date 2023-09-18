@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 	*g_stack = NULL;
 	if (argc != 2)
 	{
-		fprintf(stderr, "USAGE: %s \n", argv[0]);
+		fprintf(stderr, "USAGE: monty file\n", argv[0]);
 		exit(EXIT_FAILURE);
 	} /*end argc if*/
 	FILE *file = fopen(argv[1], "r"); /*open file*/
