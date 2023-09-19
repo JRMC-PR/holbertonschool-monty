@@ -19,6 +19,8 @@ void (*getf(char *T_op, unsigned int line_number))(m_stack_t **, unsigned int)
 		{"nop", nop},
 		{NULL, NULL},
 	};
+	if (T_op == NULL)
+		instructions[i].f(g_stack, line_number);
 	while (instructions[i].opcode)
 	{
 		/*verify if match*/
