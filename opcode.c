@@ -16,7 +16,9 @@ void push(m_stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	} /*end node if*/
 
-	token = strtok(NULL, " $");
+	token = strtok(NULL, " \n\t\r$");
+	if (isdigit(token) == 0)
+		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 	if (!token)
 	{
 		fprintf(stderr, "L%u: usage: push integer\n", line_number);
@@ -83,7 +85,7 @@ void pop(m_stack_t **stack, unsigned int line_number)
 		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
 		exit(EXIT_FAILURE);
 	} /*end stack if*/
-	 tmp = *stack;
+	tmp = *stack;
 	*stack = (*stack)->next;
 	/*check if stil in stack*/
 	if (*stack)

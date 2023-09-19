@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 		line_number++;
 		opcode[strlen(opcode) + 1] = '\0'; /* Remove trailing newline */
 		opcode = trim(opcode);
-		option = strtok(opcode, " \n\t$");
+		option = strtok(opcode, " \n\t\r$");
 		getf(option, line_number);
 
 	} /*end while*/
