@@ -36,14 +36,13 @@ int main(int argc, char *argv[])
 	while ((read = getline(&opcode, &len, file)) != -1)
 	{
 		line_number++;
-		opcode[strlen(opcode) + 1] = '\0'; /* Remove trailing newline */
-		opcode = trim(opcode);
 		option = strtok(opcode, " \n\t\r$");
+		if (strcmp(opcode, "\n") == 0)
+			continue;
 		getf(option, line_number);
 
 	} /*end while*/
 	free(opcode);
-	free_token(g_stack);
 	fclose(file);
 	exit(EXIT_SUCCESS);
 } /*end function*/

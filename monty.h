@@ -55,9 +55,8 @@ void pop(m_stack_t **stack, unsigned int line_numbe);
 void swap(m_stack_t **stack, unsigned int line_number);
 void add(m_stack_t **stack, unsigned int line_number);
 void nop(m_stack_t **stack, unsigned int line_number);
-void (*getf(char *T_op, unsigned int line_nuber))(m_stack_t **, unsigned int);
+void *getf(char *option, unsigned int line_nuber);
 void **Tok(char *opcode, char **tokens);
-char *trim(char *opcode);
 void free_token(m_stack_t **toki);
 
 
