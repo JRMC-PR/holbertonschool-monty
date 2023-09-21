@@ -2,11 +2,11 @@
 /**
  *push - adds to the stack
  *@head::a pointer to the head of the stack
- *@n:data sto be stored
+ *@line_number:data to be stored
  */
 void push(m_stack_t **stack, unsigned int line_number)
 {
-/*Declarations*/
+	/*Declarations*/
 	char *token;
 	int value;
 	m_stack_t *new_node = malloc(sizeof(m_stack_t));
@@ -40,10 +40,9 @@ void push(m_stack_t **stack, unsigned int line_number)
  *@stack: array of data to print
  *@line_number: lines in input;
  */
-
-void pall(m_stack_t **stack, unsigned int line_number) // print all
+void pall(m_stack_t **stack, unsigned int line_number)
 {
-/*Declarations*/
+	/*Declarations*/
 	m_stack_t *tmp = *stack;
 	/*void unused parameter*/
 	(void)line_number;
@@ -56,17 +55,16 @@ void pall(m_stack_t **stack, unsigned int line_number) // print all
 } /*end pall function*/
 
 /**
- * pint - prints current int
- * @stack: array of data
- * @line_number: line
+ *pint - prints the value @ the top of the stack
+ *@stack: pointer to the stack
+ *@line_number: unused param in this function
  */
-
-void pint(m_stack_t **stack, unsigned int line_number) //print current
+void pint(m_stack_t **stack, unsigned int line_number)
 {
-/*check if the stck is empty*/
+	/*check if the stck is empty*/
 	if (*stack == NULL)
 	{
-		perror("L<%f>: can't pint, stack empty", line_number);
+		fprintf(stderr, "L<%d>: can't pint, stack empty", line_number);
 		exit(EXIT_FAILURE);
 	} /*end stack if*/
 	printf("%d",(*stack)->n);
@@ -80,19 +78,19 @@ void pint(m_stack_t **stack, unsigned int line_number) //print current
 void pop(m_stack_t **stack, unsigned int line_number) //remove from stack
 {
 	m_stack_t *tmp;
-
+	/*check if the stck is empty*/
 	if (*stack == NULL)
 	{
-		perror("L<%f>: can't pint, stack empty", line_number);
+		fprintf(stderr, "L<%d>: can't pint, stack empty", line_number);
 		exit(EXIT_FAILURE);
 	} /*end stack if*/	
-	*tmp = *stack;
+	 tmp = *stack;
 	*stack = (*stack)->next;
 	/*check if stil in stack*/
 	if (*stack)
 		(*stack)->prev = NULL;
-
-	free(tmp);}
+	free(tmp);
+} /*end pop function*/
 
 /**
  * swap - swap top 2 elements of stack
@@ -103,17 +101,16 @@ void pop(m_stack_t **stack, unsigned int line_number) //remove from stack
 void swap(m_stack_t **stack, unsigned int line_number) //swap top 2 elements of stack
 {
 	int tmp;
-/*check if the stck is empty*/
+	/*check if the stck is empty*/
 	if (*stack == NULL)
 	{
-		perror("L<%f>: can't pint, stack empty", line_number);
+		fprintf(stderr, "L<%d>: can't pint, stack empty", line_number);
 		exit(EXIT_FAILURE);
 	} /*end stack if*/	
-
 	tmp = (*stack)->n;
 	(*stack)->n = (*stack)->next->n;
 	(*stack)->next->n = tmp;
-}
+} /*end swap function*/
 
 /**
  * add - add top 2 elements of stack
@@ -126,11 +123,12 @@ void add(m_stack_t **stack, unsigned int line_number) // add top 2 elements of s
 	/*check if the stck is empty*/
 	if (*stack == NULL)
 	{
-		perror("L<%f>: can't pint, stack empty", line_number);
+		fprintf(stderr, "L<%d>: can't pint, stack empty", line_number);
 		exit(EXIT_FAILURE);
 	} /*end stack if*/
 	(*stack)->next->n += (*stack)->n;
-	//send to pop}
+	//send to pop
+} /*end add fucntion*/
 
 /**
  * nop - doesnt do anything
@@ -143,5 +141,4 @@ void nop(m_stack_t **stack, unsigned int line_number)
 	(void) stack;
 	(void) line_number;
  //void everything given to func
-}
-
+} /*end nop function*/
