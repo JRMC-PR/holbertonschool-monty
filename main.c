@@ -44,6 +44,7 @@ int main(int argc, char *argv[])
 	} /*end while*/
 	free(opcode);
 	free_token(g_stack);
+	free(new_node);
 	fclose(file);
 	exit(EXIT_SUCCESS);
 } /*end function*/
