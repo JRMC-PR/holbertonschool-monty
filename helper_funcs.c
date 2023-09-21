@@ -5,7 +5,7 @@
  *@line_number: holds the line number of the file read
  *Return: function pointer
  */
-void *getf(char *option, unsigned int line_number)
+void *getf(m_stack_t **g_stack, char *option, unsigned int line_number)
 {
 	/*Daclarations*/
 	int i = 0;
@@ -50,7 +50,12 @@ void free_token(m_stack_t **toki)
 	while (toki != NULL)
 	{
 		current = *toki;
-		*toki = (*toki)->next;
-		free(current);
+		if ((*toki)->next != NULL)
+		{
+			*toki = (*toki)->next;
+			free(current);
+		}
+		else
+			return;
 	}
 } /*end free_token function*/

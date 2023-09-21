@@ -46,7 +46,7 @@ void (*f)(m_stack_t **stack, unsigned int line_number);
 /**
  * function prototypes
  */
-m_stack_t **g_stack;
+m_stack_t *new_node;
 
 void pall(m_stack_t **stack, unsigned int line_number);
 void push(m_stack_t **stack, unsigned int line_number);
@@ -55,7 +55,7 @@ void pop(m_stack_t **stack, unsigned int line_numbe);
 void swap(m_stack_t **stack, unsigned int line_number);
 void add(m_stack_t **stack, unsigned int line_number);
 void nop(m_stack_t **stack, unsigned int line_number);
-void *getf(char *option, unsigned int line_nuber);
+void *getf(m_stack_t **g_stack, char *option, unsigned int line_nuber);
 void **Tok(char *opcode, char **tokens);
 void free_token(m_stack_t **toki);
 

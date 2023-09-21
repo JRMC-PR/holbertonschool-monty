@@ -8,7 +8,7 @@ void push(m_stack_t **stack, unsigned int line_number)
 {
 	/*Declarations*/
 	char *token, *end;
-	m_stack_t *new_node = malloc(sizeof(m_stack_t));
+	 new_node = malloc(sizeof(m_stack_t));
 	/*Tokenize*/
 	if (!new_node)
 	{

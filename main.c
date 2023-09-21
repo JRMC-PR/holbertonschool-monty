@@ -9,6 +9,7 @@
 
 int main(int argc, char *argv[])
 {
+	m_stack_t **g_stack;
 	char *opcode = NULL, *option = NULL;
 	unsigned int line_number = 0;
 	size_t len = 0;
@@ -39,10 +40,10 @@ int main(int argc, char *argv[])
 		option = strtok(opcode, " \n\t\r$");
 		if (strcmp(opcode, "\n") == 0)
 			continue;
-		getf(option, line_number);
-
+		getf(g_stack, option, line_number);
 	} /*end while*/
 	free(opcode);
+	free_token(g_stack);
 	fclose(file);
 	exit(EXIT_SUCCESS);
 } /*end function*/
