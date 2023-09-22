@@ -11,6 +11,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <ctype.h>
+#include <stdbool.h>
 
 
 /**
@@ -58,6 +59,5 @@ void nop(m_stack_t **stack, unsigned int line_number);
 void *getf(m_stack_t **g_stack, char *option, unsigned int line_nuber);
 void **Tok(char *opcode, char **tokens);
 void free_token(m_stack_t **toki);
-
-
+bool isInteger(const char *token);
 #endif

@@ -59,3 +59,19 @@ void free_token(m_stack_t **toki)
 			return;
 	}
 } /*end free_token function*/
+
+/**
+ *isInteger - checks if its integer or not
+ *@token: pointer to the string
+ *Return: confirmation its a integer
+ */
+bool isInteger(const char *token)
+{
+	/*Declarations*/
+	char *end;
+	/*if empty return false*/
+	if (*token == '\0')
+		return (false);
+	strtol(token, &end, 10);
+	return (*end == '\0');
+} /*end isInteger*/
