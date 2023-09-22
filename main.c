@@ -48,13 +48,29 @@ int main(int argc, char *argv[])
 
 void add(m_stack_t **stack, unsigned int line_number)
 {
+	int sum;
+	m_stack_t *temp;
+
+	/* Check if there are at least two elements on the stack */
 	if (*stack == NULL || (*stack)->next == NULL)
 	{
-		fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
+		fprintf(stderr, "L%u: can't add, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	(*stack)->next->n += (*stack)->n;
-}
+
+	/* Calculate the sum of the top two elements */
+	sum = (*stack)->n + (*stack)->next->n;
+
+	/* Remove the top element (the second element becomes the new top) */
+	temp = *stack;
+	*stack = (*stack)->next;
+	(*stack)->prev = NULL;
+
+	/* Update the new top element with the sum */
+	(*stack)->n = sum;
+
+	/* Free the memory of the removed top element */
+	free(temp);}
 
 /**
  * nop - Do nothing.
