@@ -32,6 +32,7 @@ void getf(m_stack_t **g_stack, char *line, unsigned int line_number)
 			if (!strcmp(instruct, "push"))
 			{
 				char *arg = strtok(NULL, " \t\n$");
+
 				if (!isInteger(arg))
 				{
 					fprintf(stderr, "L%u: usage: push integer\n", line_number);
