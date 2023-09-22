@@ -6,33 +6,30 @@
  */
 void push(m_stack_t **stack, unsigned int line_number)
 {
-	/*Declarations*/
-	char *token, *end;
-	m_stack_t *new_node = malloc(sizeof(m_stack_t));
-	/*Tokenize*/
-	if (!new_node)
+	m_stack_t *new_node;
+
+	/* Allocate memory for a new stack node */
+	new_node = malloc(sizeof(m_stack_t));
+	if (new_node == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
-	} /*end node if*/
+	}
 
-	token = strtok(NULL, " \n\t\r$");
-	if (!token)
-	{
-		fprintf(stderr, "L%u: usage: push integer\n", line_number);
-		free(new_node);
-		exit(EXIT_FAILURE);
-	} /*end token if*/
-	/*fill the new node*/
-	new_node->n = strtol(token, &end, 10);
+	/* Set the integer value in the new node */
+	new_node->n = line_number;
+
+	/* Initialize pointers for the new node */
 	new_node->prev = NULL;
 	new_node->next = *stack;
-	if (*stack)
-	{
+
+	/* Update the previous pointer of the current top element */
+	if (*stack != NULL)
 		(*stack)->prev = new_node;
-	} /*end stack if*/
+
+	/* Update the stack pointer to point to the new top element */
 	*stack = new_node;
-} /*end push function*/
+}
 
 /**
  *pall - print all opcode
@@ -41,17 +38,18 @@ void push(m_stack_t **stack, unsigned int line_number)
  */
 void pall(m_stack_t **stack, unsigned int line_number)
 {
-	/*Declarations*/
-	m_stack_t *tmp = *stack;
-	/*void unused parameter*/
+	m_stack_t *current = *stack;
+
+	/* Suppress unused parameter warning for line_number */
 	(void)line_number;
-	/*print everything in the stack*/
-	while (tmp)
+
+	/* Traverse the stack and print each element */
+	while (current != NULL)
 	{
-		printf("%d\n", tmp->n);
-		tmp = tmp->next;
-	} /*end while*/
-} /*end pall function*/
+		printf("%d\n", current->n);
+		current = current->next;
+	}
+}
 
 /**
  *pint - prints the value @ the top of the stack
@@ -59,15 +57,16 @@ void pall(m_stack_t **stack, unsigned int line_number)
  *@line_number: unused param in this function
  */
 void pint(m_stack_t **stack, unsigned int line_number)
-{
-	/*check if the stck is empty*/
-	if (*stack == NULL)
+{ /* Check if the stack is empty */
+	if (stack == NULL || *stack == NULL)
 	{
-		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
 		exit(EXIT_FAILURE);
-	} /*end stack if*/
-	printf("%d", (*stack)->n);
-} /*end pint function*/
+	}
+
+	/* Print the value at the top of the stack */
+	printf("%d\n", (*stack)->n);
+}
 
 /**
  * pop - remove item from stack
@@ -76,20 +75,28 @@ void pint(m_stack_t **stack, unsigned int line_number)
  */
 void pop(m_stack_t **stack, unsigned int line_number)
 {
-	m_stack_t *tmp;
-	/*check if the stck is empty*/
+	m_stack_t *temp;
+
+	/* Check if the stack is empty */
 	if (*stack == NULL)
 	{
-		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
+		fprintf(stderr, "L%u: can't pop an empty stack\n", line_number);
 		exit(EXIT_FAILURE);
-	} /*end stack if*/
-	tmp = *stack;
+	}
+
+	/* Save a pointer to the current top element */
+	temp = *stack;
+
+	/* Update the stack pointer to point to the next element */
 	*stack = (*stack)->next;
-	/*check if stil in stack*/
-	if (*stack)
+
+	/* Update the previous pointer of the new top element to NULL */
+	if (*stack != NULL)
 		(*stack)->prev = NULL;
-	free(tmp);
-} /*end pop function*/
+
+	/* Free the memory of the removed element */
+	free(temp);
+}
 
 /**
  * swap - swap top 2 elements of stack
@@ -99,16 +106,26 @@ void pop(m_stack_t **stack, unsigned int line_number)
 
 void swap(m_stack_t **stack, unsigned int line_number)
 {
-	int tmp;
-	/*check if the stck is empty*/
-	if (*stack == NULL)
+	m_stack_t *temp;
+
+	/* Check if there are at least two elements on the stack */
+	if (*stack == NULL || (*stack)->next == NULL)
 	{
-		fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
+		fprintf(stderr, "L%u: can't swap, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
-	} /*end stack if*/
-	tmp = (*stack)->n;
-	(*stack)->n = (*stack)->next->n;
-	(*stack)->next->n = tmp;
-} /*end swap function*/
+	}
 
+	/* Save pointers to the top two elements */
+	temp = (*stack)->next;
 
+	/* Update the next pointers to perform the swap */
+	(*stack)->next = temp->next;
+	temp->next = *stack;
+
+	/* Update the previous pointers to maintain the doubly linked list */
+	temp->prev = NULL;
+	(*stack)->prev = temp;
+
+	/* Update the stack pointer to point to the new top element */
+	*stack = temp;
+}

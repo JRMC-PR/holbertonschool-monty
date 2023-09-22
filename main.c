@@ -7,72 +7,70 @@
  * Return: int
  */
 
+m_stack_t *new_node = NULL;
+
 int main(int argc, char *argv[])
 {
-	char *opcode = NULL, *option = NULL;
-	unsigned int line_number = 0;
-	size_t len = 0;
-	ssize_t read;
+    if (argc != 2)
+    {
+        fprintf(stderr, "USAGE: monty file\n");
+        exit(EXIT_FAILURE);
+    }
 
-	g_stack = malloc(sizeof(m_stack_t *));
-	if (!g_stack)
-	{
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
-	}
-	*g_stack = NULL;
-	if (argc != 2)
-	{
-		fprintf(stderr, "USAGE: monty file\n");
-		exit(EXIT_FAILURE);
-	} /*end argc if*/
-	FILE *file = fopen(argv[1], "r"); /*open file*/
+    FILE *file = fopen(argv[1], "r");
 
-	if (!file)
-	{
-		fprintf(stderr, "Error: Can't open file HoLbErToN\n");
-		exit(EXIT_FAILURE);
-	} /*end File if*/
-	while ((read = getline(&opcode, &len, file)) != -1)
-	{
-		line_number++;
-		option = strtok(opcode, " \n\t\r$");
-		if (strcmp(opcode, "\n") == 0)
-			continue;
-		getf(option, line_number);
+    if (file == NULL)
+    {
+        fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+        exit(EXIT_FAILURE);
+    }
 
-	} /*end while*/
-	free(opcode);
-	fclose(file);
-	exit(EXIT_SUCCESS);
-} /*end function*/
+    m_stack_t *stack = NULL;
+    char *line = NULL;
+    size_t len = 0;
+    unsigned int line_number = 0;
+
+    while (getline(&line, &len, file) != -1)
+    {
+        line_number++;
+        getf(&stack, line, line_number);
+    }
+
+    fclose(file);
+    free_token(stack);
+
+    if (line)
+        free(line);
+
+    exit(EXIT_SUCCESS);
+}
 
 /**
- * add - add top 2 elements of stack
- * @stack: array of data
- * @line_number: line
+ * add - Add the top two elements of the stack.
+ * @stack: Pointer to the stack.
+ * @line_number: The line number where the "add" opcode appears.
  */
 
 void add(m_stack_t **stack, unsigned int line_number)
 {
-	/*check if the stck is empty*/
-	if (*stack == NULL)
-	{
-		fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
-		exit(EXIT_FAILURE);
-	} /*end stack if*/
-	(*stack)->next->n += (*stack)->n;
-} /*end add fucntion*/
+    if (*stack == NULL || (*stack)->next == NULL)
+    {
+        fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
+        exit(EXIT_FAILURE);
+    }
+
+    (*stack)->next->n += (*stack)->n;
+}
 
 /**
- * nop - doesnt do anything
- * @stack: array of data
- * @line_number: line
+ * nop - Do nothing.
+ * @stack: Pointer to the stack.
+ * @line_number: The line number where the "nop" opcode appears.
  */
 
 void nop(m_stack_t **stack, unsigned int line_number)
 {
-	(void) stack;
-	(void) line_number;
-} /*end nop function*/
-
+    (void)stack;
+    (void)line_number;
+    /* This function does nothing, as it's a placeholder for a no-op */
+}

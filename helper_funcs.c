@@ -1,56 +1,86 @@
 #include "monty.h"
 /**
  *getf - gets function o to be used
- *@T_op: pointer to tokenizd input
+ *@option: pointer to tokenizd input
  *@line_number: holds the line number of the file read
+ *@g_stack: pointer tot stack
  *Return: function pointer
  */
-void *getf(char *option, unsigned int line_number)
+void getf(m_stack_t **g_stack, char *line, unsigned int line_number)
 {
 	/*Daclarations*/
-	int i = 0;
+	char *instruct = strtok(line, " \t\n$");
+	int i;
+
+	if (!instruct)
+		return;
+
 	instruction_t instructions[] = {
 		{"push", push},
 		{"pall", pall},
-		{"pint", pint},
 		{"pop", pop},
 		{"swap", swap},
 		{"add", add},
+		{"pint", pint},
 		{"nop", nop},
-		{NULL, NULL},
-	};
-	if (option == NULL)
-		instructions[6].f(g_stack, line_number);
-	while (instructions[i].opcode)
+		{NULL, NULL}};
+
+	for (i = 0; instructions[i].opcode; i++)
 	{
-		/*verify if match*/
-		if (strcmp(option, instructions[i].opcode) == 0)
+		if (!strcmp(instruct, instructions[i].opcode))
 		{
-			instructions[i].f(g_stack, line_number);
-			return (0);
+			if (!strcmp(instruct, "push"))
+			{
+				char *arg = strtok(NULL, " \t\n$");
+
+				if (!isInteger(arg))
+				{
+					fprintf(stderr, "L%u: usage: push integer\n", line_number);
+					exit(EXIT_FAILURE);
+				}
+
+				instructions[i].f(g_stack, atoi(arg));
+			}
+			else
+				instructions[i].f(g_stack, line_number);
+			return;
 		}
-		i++; /*move to the next option*/
-	} /*end while loop*/
-	if (i == 7)
-	{
-		fprintf(stderr, "L%d: unknown instruction %s\n", line_number, option);
-		exit(EXIT_FAILURE);
-	} /*end positon if*/
-	return (0);
-} /*end get_func*/
+	}
+	fprintf(stderr, "L%u: unknown instruction %s\n", line_number, instruct);
+	exit(EXIT_FAILURE);
+}
 
 /**
  * free_token - Frees memory allocated for token array and token strings
  * @toki: The token array to be freed
  */
-void free_token(m_stack_t **toki)
+void free_token(m_stack_t *stack)
 {
 	m_stack_t *current;
-	/*Free array if pointers*/
-	while (toki != NULL)
+
+	while (stack != NULL)
 	{
-		current = *toki;
-		*toki = (*toki)->next;
+		current = stack;
+		stack = (stack)->next;
 		free(current);
 	}
-} /*end free_token function*/
+}
+
+#include "monty.h"
+/**
+ * isInteger - Check if a string is a valid integer.
+ * @str: The input string to be checked.
+ * Return: 1 if @str is a valid integer, 0 otherwise.
+ */
+int isInteger(const char *str)
+{
+	if (!str || !*str || (*str != '-' && !isdigit(*str)))
+		return (0);
+
+	for (int i = 1; str[i]; i++)
+	{
+		if (!isdigit(str[i]))
+			return (0);
+	}
+	return (1);
+}
