@@ -49,6 +49,7 @@ void getf(m_stack_t **g_stack, char *line, unsigned int line_number)
 	exit(EXIT_FAILURE);
 }
 
+
 /**
  * free_token - Frees memory allocated for token array and token strings
  * @stack: The token array to be freed
