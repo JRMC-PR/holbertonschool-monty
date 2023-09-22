@@ -42,10 +42,9 @@ int main(int argc, char *argv[])
 			continue;
 		getf(g_stack, option, line_number);
 	} /*end while*/
+	fclose(file);
 	free(opcode);
 	free_token(g_stack);
-	free(new_node);
-	fclose(file);
 	exit(EXIT_SUCCESS);
 } /*end function*/
 
