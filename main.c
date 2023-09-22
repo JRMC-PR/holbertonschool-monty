@@ -7,8 +7,6 @@
  * Return: int
  */
 
-m_stack_t *new_node = NULL;
-
 int main(int argc, char *argv[])
 {
 	if (argc != 2)
