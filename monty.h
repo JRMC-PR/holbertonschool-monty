@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <ctype.h>
+#include <stdbool.h>
 
 typedef struct m_stack_s
 {
