@@ -48,8 +48,6 @@ void getf(m_stack_t **g_stack, char *line, unsigned int line_number)
 	fprintf(stderr, "L%u: unknown instruction %s\n", line_number, instruct);
 	exit(EXIT_FAILURE);
 }
-
-
 /**
  * free_token - Frees memory allocated for token array and token strings
  * @stack: The token array to be freed
@@ -65,7 +63,6 @@ void free_token(m_stack_t *stack)
 		free(current);
 	}
 }
-
 /**
  * isInteger - Check if a string is a valid integer.
  * @str: The input string to be checked.
