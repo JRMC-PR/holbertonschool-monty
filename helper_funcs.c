@@ -3,7 +3,7 @@
  *getf - gets function o to be used
  *@option: pointer to tokenizd input
  *@line_number: holds the line number of the file read
- *g_stack: pointer tot stack
+ *@g_stack: pointer tot stack
  *Return: function pointer
  */
 void *getf(m_stack_t **g_stack, char *option, unsigned int line_number)
