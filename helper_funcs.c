@@ -1,7 +1,7 @@
 #include "monty.h"
 /**
  *getf - gets function o to be used
- *@option: pointer to tokenizd input
+ *@line: pointer to tokenizd input
  *@line_number: holds the line number of the file read
  *@g_stack: pointer tot stack
  *Return: function pointer
@@ -32,13 +32,11 @@ void getf(m_stack_t **g_stack, char *line, unsigned int line_number)
 			if (!strcmp(instruct, "push"))
 			{
 				char *arg = strtok(NULL, " \t\n$");
-
 				if (!isInteger(arg))
 				{
 					fprintf(stderr, "L%u: usage: push integer\n", line_number);
 					exit(EXIT_FAILURE);
 				}
-
 				instructions[i].f(g_stack, atoi(arg));
 			}
 			else
@@ -52,7 +50,7 @@ void getf(m_stack_t **g_stack, char *line, unsigned int line_number)
 
 /**
  * free_token - Frees memory allocated for token array and token strings
- * @toki: The token array to be freed
+ * @stack: The token array to be freed
  */
 void free_token(m_stack_t *stack)
 {
