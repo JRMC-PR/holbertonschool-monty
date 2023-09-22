@@ -8,7 +8,6 @@
  */
 void getf(m_stack_t **g_stack, char *line, unsigned int line_number)
 {
-	/*Daclarations*/
 	char *instruct = strtok(line, " \t\n$");
 	int i;
 
