@@ -66,7 +66,6 @@ void free_token(m_stack_t *stack)
 	}
 }
 
-#include "monty.h"
 /**
  * isInteger - Check if a string is a valid integer.
  * @str: The input string to be checked.
