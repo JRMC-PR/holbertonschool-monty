@@ -48,6 +48,7 @@ void getf(m_stack_t **g_stack, char *line, unsigned int line_number)
 	fprintf(stderr, "L%u: unknown instruction %s\n", line_number, instruct);
 	exit(EXIT_FAILURE);
 }
+
 /**
  * free_token - Frees memory allocated for token array and token strings
  * @stack: The token array to be freed
